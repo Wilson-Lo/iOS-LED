@@ -69,6 +69,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcV-In-TpQ">
                                 <rect key="frame" x="352.5" y="103" width="41.5" height="36"/>
                                 <state key="normal" image="radar"/>
+                                <connections>
+                                    <action selector="sendUDPWithSender:" destination="h0M-P3-bBR" eventType="touchUpInside" id="1EM-8N-hhI"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
