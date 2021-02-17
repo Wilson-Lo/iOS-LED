@@ -14,6 +14,8 @@
 		8670E6E925DCB7A7007575FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8670E6E725DCB7A7007575FF /* Main.storyboard */; };
 		8670E6EB25DCB7A8007575FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8670E6EA25DCB7A8007575FF /* Assets.xcassets */; };
 		8670E6EE25DCB7A8007575FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8670E6EC25DCB7A8007575FF /* LaunchScreen.storyboard */; };
+		8670E6FA25DCFE3E007575FF /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8670E6F925DCFE3E007575FF /* SettingsViewController.swift */; };
+		8670E6FE25DCFED2007575FF /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8670E6FD25DCFED2007575FF /* BaseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		8670E6EA25DCB7A8007575FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8670E6ED25DCB7A8007575FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8670E6EF25DCB7A8007575FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8670E6F925DCFE3E007575FF /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		8670E6FD25DCFED2007575FF /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		9A028917A1E17CFF3181E7DA /* Pods-LED.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LED.release.xcconfig"; path = "Target Support Files/Pods-LED/Pods-LED.release.xcconfig"; sourceTree = "<group>"; };
 		BEF8D1F5A34DB3DDC25448E2 /* Pods-LED.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LED.debug.xcconfig"; path = "Target Support Files/Pods-LED/Pods-LED.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,6 +67,7 @@
 		8670E6E025DCB7A7007575FF /* LED */ = {
 			isa = PBXGroup;
 			children = (
+				8670E6F625DCFBFB007575FF /* ViewController */,
 				8670E6F525DCEEEB007575FF /* Delegate */,
 				8670E6E525DCB7A7007575FF /* ViewController.swift */,
 				8670E6E725DCB7A7007575FF /* Main.storyboard */,
@@ -80,6 +85,31 @@
 				8670E6E125DCB7A7007575FF /* AppDelegate.swift */,
 			);
 			path = Delegate;
+			sourceTree = "<group>";
+		};
+		8670E6F625DCFBFB007575FF /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8670E6FC25DCFEBF007575FF /* Base */,
+				8670E6FB25DCFEB0007575FF /* View */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		8670E6FB25DCFEB0007575FF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8670E6F925DCFE3E007575FF /* SettingsViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8670E6FC25DCFEBF007575FF /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				8670E6FD25DCFED2007575FF /* BaseViewController.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		89A6E40CC3968451AAE161D8 /* Frameworks */ = {
@@ -214,9 +244,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8670E6FE25DCFED2007575FF /* BaseViewController.swift in Sources */,
 				8670E6E625DCB7A7007575FF /* ViewController.swift in Sources */,
 				8670E6E225DCB7A7007575FF /* AppDelegate.swift in Sources */,
 				8670E6E425DCB7A7007575FF /* SceneDelegate.swift in Sources */,
+				8670E6FA25DCFE3E007575FF /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,10 +396,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L57H6UW7SM;
 				INFOPLIST_FILE = LED/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gomax.led.LED;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -383,10 +417,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L57H6UW7SM;
 				INFOPLIST_FILE = LED/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gomax.led.LED;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
