@@ -13,7 +13,8 @@ target 'LED' do
   pod 'RSSelectionMenu'
   pod 'Toast-Swift', '~> 5.0.1'
   pod 'SwiftSocket'
-
+  pod 'Alamofire', '~> 5.2'
+  pod 'SwiftyJSON', '~> 4.0'
 
   # Pods for LED
 

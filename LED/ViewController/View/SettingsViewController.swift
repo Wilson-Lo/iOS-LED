@@ -14,12 +14,21 @@ import CryptoSwift
 import RSSelectionMenu
 import Toast_Swift
 import SwiftSocket
+import SwiftyJSON
+import Alamofire
 
 class SettingsViewController: BaseViewController , GCDAsyncUdpSocketDelegate{
     
     var queueUDP: DispatchQueue!
     var udpSendSocket: UDPClient!
     var udpReceiveSocket: GCDAsyncUdpSocket!
+    var deviceListForUI: Array<String> = []
+    var deviceListForCmd: Array<String> = []
+    var menu: RSSelectionMenu<String>!
+    let preferences = UserDefaults.standard
+    
+    /** command event number  ***/
+    final var GET_HOSTNAME_EVENT = 101
     
     @IBOutlet weak var hostnameEditText: UITextField!
     @IBOutlet weak var hostnameApplyBt: UIButton!
@@ -85,6 +94,9 @@ class SettingsViewController: BaseViewController , GCDAsyncUdpSocketDelegate{
         if(data != nil){
             var deviceInfo = aesDecode(data: data)
             if(deviceInfo.count > 0){
+                
+                self.deviceListForUI.append("MAC:" + String(format:"%02X", deviceInfo[21]) + "-" + String(format:"%02X", deviceInfo[22]) + "-" + String(format:"%02X", deviceInfo[23]) + "-" + String(format:"%02X", deviceInfo[24]) + "-" + String(format:"%02X", deviceInfo[25]) + "-" + String(format:"%02X", deviceInfo[26]) + "\n" + String(deviceInfo[27]) + "." + String(deviceInfo[28]) + "." + String(deviceInfo[29]) + "." + String(deviceInfo[30]))
+                self.deviceListForCmd.append(String(deviceInfo[27]) + "." + String(deviceInfo[28]) + "." + String(deviceInfo[29]) + "." + String(deviceInfo[30]))
                 print(String(deviceInfo[27]) + "." + String(deviceInfo[28]) + "." + String(deviceInfo[29]) + "." + String(deviceInfo[30]))
             }
         }
@@ -96,6 +108,42 @@ class SettingsViewController: BaseViewController , GCDAsyncUdpSocketDelegate{
 
 extension SettingsViewController{
     
+    //send HTTP GET method
+    public func sendHTTPGET(ip:String, cmd: String, cmdNumber: Int){
+        AF.request("http://" + ip + ":" + self.SERVER_PORT + "/" + cmd, method: .get).response{ response in
+            //  debugPrint(response)
+            
+            switch response.result{
+                
+            case .success(let value):
+                let json = JSON(value)
+                
+                debugPrint(json)
+                switch(cmdNumber){
+                    
+                case self.GET_HOSTNAME_EVENT:
+                    print("GET_HOSTNAME_EVENT")
+                    if let hostname = json["hostname"].string{
+                        self.hostnameEditText.text = hostname
+                    }
+                    break
+                    
+                default:
+                    
+                    break
+                }
+                
+                break
+                
+            case .failure(let error):
+                debugPrint("HTTP GET request failed")
+                DispatchQueue.main.async {
+                    self.showAlert(title: "Warning", message: "Can't connect to LED !")
+                }
+                break
+            }
+        }
+    }
     
     //encode udp cmd
     func aesEncodeUDPCmd() -> [Byte]{
@@ -125,8 +173,52 @@ extension SettingsViewController{
     
     @IBAction func sendUDP(sender: UIButton) {
         
+        DispatchQueue.main.async {
+            self.showLoading()
+        }
+        
+        self.deviceListForUI.removeAll()
+        self.deviceListForCmd.removeAll()
+        
         self.queueUDP.async {
             self.udpSendSocket.send(data: self.aesEncodeUDPCmd())
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { // Change `2.0` to the desired number of seconds.
+            
+            print("times up")
+            
+            if(self.deviceListForCmd.count > 0){
+                
+                DispatchQueue.main.async {
+                    self.closeLoading()
+                    var selectedNames: [String] = []
+                    // create menu with data source -> here [String]
+                    self.menu = RSSelectionMenu(dataSource: self.deviceListForUI) { (cell, name, indexPath) in
+                        cell.textLabel?.text = name
+                    }
+                    // provide selected items
+                    self.menu.setSelectedItems(items: selectedNames) { (name, index, selected, selectedItems) in
+                        selectedNames = selectedItems
+                        
+                        print(self.deviceListForCmd[index])
+                        self.ipEditText.text = self.deviceListForCmd[index]
+                        self.queueUDP.async {
+                            self.sendHTTPGET(ip: self.deviceListForCmd[index], cmd: HTTPHelper.CMD_HOSTNAME, cmdNumber: self.GET_HOSTNAME_EVENT)
+                            self.preferences.set(self.deviceListForCmd[index], forKey: self.key_server_ip)
+                        }
+                    }
+                    self.menu.show(from: self)
+                }
+                
+            }else{
+                DispatchQueue.main.async {
+                    self.closeLoading()
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.showAlert(title: "Warning", message: "Can't find any devices")
+                }
+            }
         }
     }
     

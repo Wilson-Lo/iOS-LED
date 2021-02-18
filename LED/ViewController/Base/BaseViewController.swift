@@ -11,7 +11,9 @@ import UIKit
 class BaseViewController: UIViewController {
     
     var alert: UIAlertController!
-    let UDPKey = "qzy159pkn333rty2" //UDP AES key
+    final let UDPKey = "qzy159pkn333rty2" //UDP AES key
+    final let key_server_ip = "led_server_ip" //LED Server IP
+    final let SERVER_PORT = "8080" //Server listening port
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +36,7 @@ class BaseViewController: UIViewController {
 extension BaseViewController{
     
     //show please wait dialog
-    private func showLoading(){
+    public func showLoading(){
         let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
         loadingIndicator.hidesWhenStopped = true
         loadingIndicator.style = UIActivityIndicatorView.Style.gray
@@ -45,9 +47,19 @@ extension BaseViewController{
     }
     
     //cancel please wait dialog
-    private func closeLoading(){
+    public func closeLoading(){
         dismiss(animated: false, completion: nil)
     }
     
+    //show alert dialog
+    public func showAlert(title: String, message: String) {
+        if(!message.isEmpty){
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+            })
+            present(alert, animated: true)
+        }
+    }
     
 }
