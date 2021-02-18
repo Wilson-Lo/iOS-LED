@@ -29,6 +29,7 @@ class SettingsViewController: BaseViewController , GCDAsyncUdpSocketDelegate{
     
     /** command event number  ***/
     final var GET_HOSTNAME_EVENT = 101
+    final var SET_HOSTNAME_EVENT = 102
     
     @IBOutlet weak var hostnameEditText: UITextField!
     @IBOutlet weak var hostnameApplyBt: UIButton!
@@ -67,6 +68,15 @@ class SettingsViewController: BaseViewController , GCDAsyncUdpSocketDelegate{
         self.queueUDP.async {
             self.udpSendSocket = UDPClient.init(address: "255.255.255.255", port: 5002)
             self.udpSendSocket.enableBroadcast()
+        }
+        
+        //check ip is stored in prefernceor not, if has ip do some things
+        if(self.preferences.value(forKey: self.key_server_ip) != nil){
+            let fullIP = self.preferences.value(forKey: self.key_server_ip) as! String
+            self.ipEditText.text = fullIP
+            self.queueUDP.async {
+                self.sendHTTPGET(ip: fullIP, cmd: HTTPHelper.CMD_HOSTNAME, cmdNumber: self.GET_HOSTNAME_EVENT)
+            }
         }
     }
     
@@ -110,8 +120,8 @@ extension SettingsViewController{
     
     //send HTTP GET method
     public func sendHTTPGET(ip:String, cmd: String, cmdNumber: Int){
-        AF.request("http://" + ip + ":" + self.SERVER_PORT + "/" + cmd, method: .get).response{ response in
-            //  debugPrint(response)
+        AF.request("http://" + ip + ":" + self.SERVER_PORT + cmd, method: .get).response{ response in
+            debugPrint(response)
             
             switch response.result{
                 
@@ -137,6 +147,61 @@ extension SettingsViewController{
                 
             case .failure(let error):
                 debugPrint("HTTP GET request failed")
+                DispatchQueue.main.async {
+                    self.showAlert(title: "Warning", message: "Can't connect to LED !")
+                }
+                break
+            }
+        }
+    }
+    
+    //send HTTP POST method
+    public func sendHTTPPOST(ip:String, cmd: String, cmdNumber: Int, data: Parameters){
+        debugPrint("sendHTTPPOST")
+        let headers: HTTPHeaders = [
+            .accept("application/json")
+        ]
+        
+        AF.request("http://" + ip + ":" + self.SERVER_PORT + cmd , method: .post, parameters: data, encoding: JSONEncoding.default, headers: headers).response{ response in
+            //  debugPrint(response)
+            
+            switch response.result{
+                
+            case .success(let value):
+                let json = JSON(value)
+                
+                switch(cmdNumber){
+                    
+                case self.SET_HOSTNAME_EVENT:
+                    print("SET_HOSTNAME_EVENT")
+                    debugPrint(json)
+                    DispatchQueue.main.async {
+                        self.closeLoading()
+                    }
+                    if let result = json["result"].string{
+                        
+                        
+                        if(result == "ok"){
+                            
+                        }else{
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                self.showAlert(title: "Warning", message: "Set hostname failed !")
+                            }
+                        }
+                        return
+                    }
+                    
+                    break
+                    
+                default:
+                    
+                    break
+                }
+                
+                break
+                
+            case .failure(let error):
+                debugPrint("HTTP POST request failed")
                 DispatchQueue.main.async {
                     self.showAlert(title: "Warning", message: "Can't connect to LED !")
                 }
@@ -217,6 +282,40 @@ extension SettingsViewController{
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.showAlert(title: "Warning", message: "Can't find any devices")
+                }
+            }
+        }
+    }
+    
+    @IBAction func setHostname(sender: UIButton) {
+        
+        DispatchQueue.main.async {
+            self.showLoading()
+        }
+        
+        self.queueUDP.async {
+            
+            if(self.preferences.value(forKey: self.key_server_ip) != nil){
+                let fullIP = self.preferences.value(forKey: self.key_server_ip) as! String
+                self.queueUDP.async {
+                    if(self.hostnameEditText.text!.isEmpty){
+                        DispatchQueue.main.async {
+                            self.closeLoading()
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            self.view.makeToast("Hostname can't be empty !", duration: 2.0, position: .bottom)
+                        }
+                    }else{
+                        let data = ["hostname":self.hostnameEditText.text]
+                        self.sendHTTPPOST(ip: fullIP, cmd: HTTPHelper.CMD_HOSTNAME, cmdNumber: self.SET_HOSTNAME_EVENT, data: data)
+                    }
+                }
+            }else{
+                DispatchQueue.main.async {
+                    self.closeLoading()
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.view.makeToast("Please scan device first !", duration: 2.0, position: .bottom)
                 }
             }
         }
