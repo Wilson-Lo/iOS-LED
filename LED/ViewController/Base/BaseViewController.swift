@@ -14,6 +14,7 @@ class BaseViewController: UIViewController {
     final let UDPKey = "qzy159pkn333rty2" //UDP AES key
     final let key_server_ip = "led_server_ip" //LED Server IP
     final let SERVER_PORT = "8080" //Server listening port
+    let preferences = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +60,15 @@ extension BaseViewController{
             alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
             })
             present(alert, animated: true)
+        }
+    }
+    
+    public func getPreServerIP() -> String{
+        if(self.preferences.value(forKey: self.key_server_ip) != nil){
+            let fullIP = self.preferences.value(forKey: self.key_server_ip) as! String
+            return fullIP
+        }else{
+            return ""
         }
     }
     

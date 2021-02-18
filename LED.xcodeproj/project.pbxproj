@@ -17,6 +17,7 @@
 		8670E6FA25DCFE3E007575FF /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8670E6F925DCFE3E007575FF /* SettingsViewController.swift */; };
 		8670E6FE25DCFED2007575FF /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8670E6FD25DCFED2007575FF /* BaseViewController.swift */; };
 		8670E70125DE0E54007575FF /* HTTPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8670E70025DE0E54007575FF /* HTTPHelper.swift */; };
+		8670E70325DE534A007575FF /* SystemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8670E70225DE534A007575FF /* SystemViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		8670E6F925DCFE3E007575FF /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8670E6FD25DCFED2007575FF /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		8670E70025DE0E54007575FF /* HTTPHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHelper.swift; sourceTree = "<group>"; };
+		8670E70225DE534A007575FF /* SystemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemViewController.swift; sourceTree = "<group>"; };
 		9A028917A1E17CFF3181E7DA /* Pods-LED.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LED.release.xcconfig"; path = "Target Support Files/Pods-LED/Pods-LED.release.xcconfig"; sourceTree = "<group>"; };
 		BEF8D1F5A34DB3DDC25448E2 /* Pods-LED.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LED.debug.xcconfig"; path = "Target Support Files/Pods-LED/Pods-LED.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -103,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				8670E6F925DCFE3E007575FF /* SettingsViewController.swift */,
+				8670E70225DE534A007575FF /* SystemViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 			files = (
 				8670E6FE25DCFED2007575FF /* BaseViewController.swift in Sources */,
 				8670E6E625DCB7A7007575FF /* ViewController.swift in Sources */,
+				8670E70325DE534A007575FF /* SystemViewController.swift in Sources */,
 				8670E6E225DCB7A7007575FF /* AppDelegate.swift in Sources */,
 				8670E70125DE0E54007575FF /* HTTPHelper.swift in Sources */,
 				8670E6E425DCB7A7007575FF /* SceneDelegate.swift in Sources */,

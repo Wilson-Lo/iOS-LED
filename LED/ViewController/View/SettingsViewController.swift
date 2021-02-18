@@ -25,7 +25,7 @@ class SettingsViewController: BaseViewController , GCDAsyncUdpSocketDelegate{
     var deviceListForUI: Array<String> = []
     var deviceListForCmd: Array<String> = []
     var menu: RSSelectionMenu<String>!
-    let preferences = UserDefaults.standard
+  //  let preferences = UserDefaults.standard
     
     /** command event number  ***/
     final var GET_HOSTNAME_EVENT = 101
@@ -180,9 +180,8 @@ extension SettingsViewController{
                     }
                     if let result = json["result"].string{
                         
-                        
                         if(result == "ok"){
-                            
+                            self.view.makeToast("Set hostname successful !", duration: 3.0, position: .bottom)
                         }else{
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                 self.showAlert(title: "Warning", message: "Set hostname failed !")
