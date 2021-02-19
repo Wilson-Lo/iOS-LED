@@ -16,9 +16,12 @@ import Alamofire
 
 class SystemViewController: BaseViewController{
     
-    
-    @IBOutlet weak var btActionMode: UIButton!
     @IBOutlet weak var btSpeed: UIButton!
+    @IBOutlet weak var btActionMode: UIButton!
+    @IBOutlet weak var switchVivid: UISegmentedControl!
+    @IBOutlet weak var btBackgroundColor: UIButton!
+    @IBOutlet weak var btTextColor: UIButton!
+    
     var menu: RSSelectionMenu<String>!
     var queueHTTP: DispatchQueue!
     var ledModeList: Array<String> = ["No Action", "Running", "Wave", "Running & Wave", "GIF"]
@@ -28,10 +31,16 @@ class SystemViewController: BaseViewController{
     final var GET_ALL_EVENT = 101
     final var SET_LED_MODE = 102
     final var SET_SPEED = 103
+    final var SET_VIVID = 104
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("SystemViewController-viewDidLoad")
+        self.btTextColor.layer.cornerRadius = 5
+        self.btTextColor.layer.borderWidth = 1
+        self.btBackgroundColor.layer.cornerRadius = 5
+        self.btBackgroundColor.layer.borderWidth = 1
+        self.switchVivid.addTarget(self, action: #selector(vividChanged(_:)), for: .valueChanged)
         self.queueHTTP = DispatchQueue(label: "com.gomax.http", qos: DispatchQoS.userInitiated)
     }
     
@@ -43,6 +52,10 @@ class SystemViewController: BaseViewController{
             self.queueHTTP.async {
                 self.sendHTTPGET(ip: serverIP, cmd: HTTPHelper.CMD_ALL, cmdNumber: self.GET_ALL_EVENT)
             }
+        }else{
+            DispatchQueue.main.async() {
+                self.view.makeToast("Please go to settings page and scan device first !", duration: 5.0, position: .bottom)
+            }
         }
     }
     
@@ -50,6 +63,34 @@ class SystemViewController: BaseViewController{
 
 extension SystemViewController{
     
+    //detect vivid change (SegmentedControl)
+    @objc func vividChanged(_ sender: UISegmentedControl){
+        print(sender.selectedSegmentIndex)
+        var vividValue = 0
+        if(sender.selectedSegmentIndex == 0){
+            //on
+            print("on")
+            vividValue = 1
+            
+        }else if(sender.selectedSegmentIndex == 1){
+            //off
+            print("off")
+            vividValue = 0
+        }
+        
+        let serverIP = self.getPreServerIP()
+        if(serverIP.count > 0){
+            let data = ["vivid":vividValue]
+            self.sendHTTPPOST(ip: serverIP, cmd: HTTPHelper.CMD_VIVID, cmdNumber: self.SET_VIVID, data: data)
+        }else{
+            DispatchQueue.main.async() {
+                self.view.makeToast("Please go to settings page and scan device first !", duration: 5.0, position: .bottom)
+            }
+        }
+        
+    }
+    
+    //show LED Mode list (LED Mode Button click event)
     @IBAction func showLEDMode(sender: UIButton) {
         DispatchQueue.main.async {
             self.closeLoading()
@@ -119,7 +160,7 @@ extension SystemViewController{
             // provide selected items
             self.menu.setSelectedItems(items: selectedNames) { (name, index, selected, selectedItems) in
                 selectedNames = selectedItems
-               
+                
                 switch(index){
                     
                 case 0:
@@ -254,9 +295,27 @@ extension SystemViewController{
                         }
                     }
                     
-                    if let vivid = json["vivid"].bool{
-                        print("vivid = \(vivid)")
+                    if(json["vivid"].bool!){
+                        self.switchVivid.selectedSegmentIndex = 0
+                    }else{
+                        self.switchVivid.selectedSegmentIndex = 1
                     }
+                    
+                    let background_r =  CGFloat(json["background_rgb"]["r"].float!/255)
+                    let background_g =  CGFloat(json["background_rgb"]["g"].float!/255)
+                    let background_b =  CGFloat(json["background_rgb"]["b"].float!/255)
+                    
+                    print("background = \(background_r) \(background_g) \(background_b)")
+                    
+                    self.btBackgroundColor.backgroundColor = UIColor(red: background_r, green: background_g, blue: background_b, alpha: 1)
+                    
+                    let text_r =  CGFloat(json["text_rgb"]["r"].float!/255)
+                    let text_g =  CGFloat(json["text_rgb"]["g"].float!/255)
+                    let text_b =  CGFloat(json["text_rgb"]["b"].float!/255)
+                    
+                    print("text = \(text_r) \(text_g) \(text_b)")
+                    
+                    self.btTextColor.backgroundColor = UIColor(red: text_r, green: text_g, blue: text_b, alpha: 1)
                     
                     
                     break
@@ -327,6 +386,24 @@ extension SystemViewController{
                         }else{
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                 self.showAlert(title: "Warning", message: "Set Speed failed !")
+                            }
+                        }
+                        return
+                    }
+                    break
+                    
+                case self.SET_VIVID:
+                    print("SET_VIVID")
+                    if let result = json["result"].string{
+                        
+                        if(result == "ok"){
+                            DispatchQueue.main.async() {
+                                self.view.makeToast("Set Colorful Mode successful !", duration: 3.0, position: .bottom)
+                            }
+                            
+                        }else{
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                self.showAlert(title: "Warning", message: "Set Colorful Mode failed !")
                             }
                         }
                         return

@@ -25,7 +25,6 @@ class SettingsViewController: BaseViewController , GCDAsyncUdpSocketDelegate{
     var deviceListForUI: Array<String> = []
     var deviceListForCmd: Array<String> = []
     var menu: RSSelectionMenu<String>!
-  //  let preferences = UserDefaults.standard
     
     /** command event number  ***/
     final var GET_HOSTNAME_EVENT = 101
@@ -71,11 +70,15 @@ class SettingsViewController: BaseViewController , GCDAsyncUdpSocketDelegate{
         }
         
         //check ip is stored in prefernceor not, if has ip do some things
-        if(self.preferences.value(forKey: self.key_server_ip) != nil){
-            let fullIP = self.preferences.value(forKey: self.key_server_ip) as! String
-            self.ipEditText.text = fullIP
+        let serverIP = self.getPreServerIP()
+        if(serverIP.count > 0){
+            self.ipEditText.text = serverIP
             self.queueUDP.async {
-                self.sendHTTPGET(ip: fullIP, cmd: HTTPHelper.CMD_HOSTNAME, cmdNumber: self.GET_HOSTNAME_EVENT)
+                self.sendHTTPGET(ip: serverIP, cmd: HTTPHelper.CMD_HOSTNAME, cmdNumber: self.GET_HOSTNAME_EVENT)
+            }
+        }else{
+            DispatchQueue.main.async() {
+                self.view.makeToast("Please scan device first !", duration: 5.0, position: .bottom)
             }
         }
     }
@@ -294,8 +297,8 @@ extension SettingsViewController{
         
         self.queueUDP.async {
             
-            if(self.preferences.value(forKey: self.key_server_ip) != nil){
-                let fullIP = self.preferences.value(forKey: self.key_server_ip) as! String
+            let serverIP = self.getPreServerIP()
+            if(serverIP.count > 0){
                 self.queueUDP.async {
                     if(self.hostnameEditText.text!.isEmpty){
                         DispatchQueue.main.async {
@@ -306,7 +309,7 @@ extension SettingsViewController{
                         }
                     }else{
                         let data = ["hostname":self.hostnameEditText.text]
-                        self.sendHTTPPOST(ip: fullIP, cmd: HTTPHelper.CMD_HOSTNAME, cmdNumber: self.SET_HOSTNAME_EVENT, data: data)
+                        self.sendHTTPPOST(ip: serverIP, cmd: HTTPHelper.CMD_HOSTNAME, cmdNumber: self.SET_HOSTNAME_EVENT, data: data)
                     }
                 }
             }else{
