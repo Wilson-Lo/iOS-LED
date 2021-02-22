@@ -18,6 +18,9 @@
 		8670E6FE25DCFED2007575FF /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8670E6FD25DCFED2007575FF /* BaseViewController.swift */; };
 		8670E70125DE0E54007575FF /* HTTPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8670E70025DE0E54007575FF /* HTTPHelper.swift */; };
 		8670E70325DE534A007575FF /* SystemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8670E70225DE534A007575FF /* SystemViewController.swift */; };
+		8670E70725DF9F46007575FF /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8670E70625DF9F46007575FF /* TextViewController.swift */; };
+		868DF94E25E34B85008D58D9 /* BackGroundColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868DF94D25E34B85008D58D9 /* BackGroundColorViewController.swift */; };
+		868DF95125E34BE5008D58D9 /* TextColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868DF95025E34BE5008D58D9 /* TextColorViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +37,9 @@
 		8670E6FD25DCFED2007575FF /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		8670E70025DE0E54007575FF /* HTTPHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHelper.swift; sourceTree = "<group>"; };
 		8670E70225DE534A007575FF /* SystemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemViewController.swift; sourceTree = "<group>"; };
+		8670E70625DF9F46007575FF /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
+		868DF94D25E34B85008D58D9 /* BackGroundColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackGroundColorViewController.swift; sourceTree = "<group>"; };
+		868DF95025E34BE5008D58D9 /* TextColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextColorViewController.swift; sourceTree = "<group>"; };
 		9A028917A1E17CFF3181E7DA /* Pods-LED.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LED.release.xcconfig"; path = "Target Support Files/Pods-LED/Pods-LED.release.xcconfig"; sourceTree = "<group>"; };
 		BEF8D1F5A34DB3DDC25448E2 /* Pods-LED.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LED.debug.xcconfig"; path = "Target Support Files/Pods-LED/Pods-LED.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,6 +112,9 @@
 			children = (
 				8670E6F925DCFE3E007575FF /* SettingsViewController.swift */,
 				8670E70225DE534A007575FF /* SystemViewController.swift */,
+				8670E70625DF9F46007575FF /* TextViewController.swift */,
+				868DF94D25E34B85008D58D9 /* BackGroundColorViewController.swift */,
+				868DF95025E34BE5008D58D9 /* TextColorViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -262,9 +271,12 @@
 				8670E6E625DCB7A7007575FF /* ViewController.swift in Sources */,
 				8670E70325DE534A007575FF /* SystemViewController.swift in Sources */,
 				8670E6E225DCB7A7007575FF /* AppDelegate.swift in Sources */,
+				868DF94E25E34B85008D58D9 /* BackGroundColorViewController.swift in Sources */,
 				8670E70125DE0E54007575FF /* HTTPHelper.swift in Sources */,
 				8670E6E425DCB7A7007575FF /* SceneDelegate.swift in Sources */,
 				8670E6FA25DCFE3E007575FF /* SettingsViewController.swift in Sources */,
+				8670E70725DF9F46007575FF /* TextViewController.swift in Sources */,
+				868DF95125E34BE5008D58D9 /* TextColorViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,7 +424,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L57H6UW7SM;
 				INFOPLIST_FILE = LED/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -433,7 +445,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L57H6UW7SM;
 				INFOPLIST_FILE = LED/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

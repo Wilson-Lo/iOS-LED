@@ -14,7 +14,7 @@ import SwiftSocket
 import SwiftyJSON
 import Alamofire
 
-class SystemViewController: BaseViewController{
+class SystemViewController: BaseViewController, UIColorPickerViewControllerDelegate{
     
     @IBOutlet weak var btSpeed: UIButton!
     @IBOutlet weak var btActionMode: UIButton!
@@ -35,6 +35,7 @@ class SystemViewController: BaseViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+     
         print("SystemViewController-viewDidLoad")
         self.btTextColor.layer.cornerRadius = 5
         self.btTextColor.layer.borderWidth = 1
@@ -62,6 +63,21 @@ class SystemViewController: BaseViewController{
 }
 
 extension SystemViewController{
+    
+    //text color picker (SegmentedControl)
+    @IBAction func textColorPicker(sender: UIButton) {
+      
+      
+
+        
+//        DispatchQueue.main.async() {
+//            let picker = UIColorPickerViewController()
+//            picker.delegate = self
+//            self.present(picker, animated: true, completion: nil)
+//        }
+    }
+    
+    
     
     //detect vivid change (SegmentedControl)
     @objc func vividChanged(_ sender: UISegmentedControl){
@@ -427,6 +443,18 @@ extension SystemViewController{
         }
     }
     
+    
+    func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
+            let color = viewController.selectedColor
+            print("finish \(color)")
+            dismiss(animated: true, completion: nil)
+        
+    }
+    
+    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
+            print("SelectColor")
+            let color = viewController.selectedColor
+        
+    }
+    
 }
-
-

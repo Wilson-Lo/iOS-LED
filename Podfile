@@ -15,7 +15,7 @@ target 'LED' do
   pod 'SwiftSocket'
   pod 'Alamofire', '~> 5.2'
   pod 'SwiftyJSON', '~> 4.0'
-  pod 'Bohr'
+ 
   # Pods for LED
 
 end
