@@ -280,7 +280,6 @@
                                                                                 <rect key="frame" x="170" y="0.0" width="170" height="30"/>
                                                                                 <color key="backgroundColor" red="1" green="0.95561788250000002" blue="0.53353866009999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <connections>
-                                                                                    <action selector="textColorPickerWithSender:" destination="L3f-Qz-QlT" eventType="touchUpInside" id="F2E-Zy-4Ed"/>
                                                                                     <segue destination="N26-YU-owE" kind="show" id="nFw-IE-DXz"/>
                                                                                 </connections>
                                                                             </button>
@@ -431,16 +430,21 @@
             </objects>
             <point key="canvasLocation" x="212" y="536"/>
         </scene>
-        <!--View Controller-->
+        <!--Back Ground Color View Controller-->
         <scene sceneID="Ohk-Bp-Fyx">
             <objects>
-                <viewController id="Dfg-Nc-X4H" sceneMemberID="viewController">
+                <viewController id="Dfg-Nc-X4H" customClass="BackGroundColorViewController" customModule="LED" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Thq-mN-H6u">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9CO-xo-oOt">
                                 <rect key="frame" x="83" y="337" width="248" height="168"/>
+                                <connections>
+                                    <action selector="backgroundColorButton:" destination="aQr-tD-26p" eventType="touchUpInside" id="9Da-35-Yuy"/>
+                                    <action selector="sad:" destination="aQr-tD-26p" eventType="touchUpInside" id="fZr-Wr-J25"/>
+                                    <action selector="showColorPickerWithSender:" destination="Dfg-Nc-X4H" eventType="touchUpInside" id="2zn-oG-gez"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Background Color" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BfQ-qC-lz4">
                                 <rect key="frame" x="20" y="60" width="178.5" height="28"/>
@@ -451,6 +455,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qO8-Xk-hWb">
                                 <rect key="frame" x="191" y="581" width="32" height="32"/>
                                 <state key="normal" image="cloud-computing"/>
+                                <connections>
+                                    <action selector="sendBackgroundColorWithSender:" destination="Dfg-Nc-X4H" eventType="touchUpInside" id="o4N-qh-qG4"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="OrO-vM-Tkl"/>
@@ -469,8 +476,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="NUG-dF-1Uy"/>
+                    <connections>
+                        <outlet property="backgroundColorButton" destination="9CO-xo-oOt" id="EfQ-hp-MDN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="71V-EH-P6g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="aQr-tD-26p" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="919" y="-52"/>
         </scene>
@@ -484,6 +495,9 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RVu-L7-4gB">
                                 <rect key="frame" x="83" y="337" width="248" height="168"/>
+                                <connections>
+                                    <action selector="showColorPickerWithSender:" destination="N26-YU-owE" eventType="touchUpInside" id="2B0-eL-wk7"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text Color" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="31e-6p-mNT">
                                 <rect key="frame" x="20" y="60" width="100" height="27.5"/>
@@ -494,6 +508,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9N3-5E-Law">
                                 <rect key="frame" x="191" y="581" width="32" height="32"/>
                                 <state key="normal" image="cloud-computing"/>
+                                <connections>
+                                    <action selector="sendTextColorWithSender:" destination="N26-YU-owE" eventType="touchUpInside" id="Xw7-r6-nva"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7bS-pE-QBr"/>
@@ -512,7 +529,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="LVo-vQ-IrI"/>
                     <connections>
-                        <outlet property="TextColorButton" destination="RVu-L7-4gB" id="A5G-ST-lex"/>
+                        <outlet property="textColorButton" destination="RVu-L7-4gB" id="A5G-ST-lex"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hbH-Uy-cf2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

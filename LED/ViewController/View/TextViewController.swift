@@ -13,19 +13,18 @@ import SwiftyJSON
 class TextViewController: BaseViewController{
     
     var queueHTTP: DispatchQueue!
-    var queueUI: DispatchQueue!
     @IBOutlet weak var textContentView: UITextView!
     
     /** command event number  ***/
-    final var GET_TEXT = 101
-    final var SET_TEXT = 102
+    final var GET_TEXT_EVENT = 101
+    final var SET_TEXT_EVENT = 102
     
     override func viewDidLoad() {
         print("TextViewController-viewDidLoad")
+        super.viewDidLoad()
         self.textContentView.layer.cornerRadius = 5
         self.textContentView.layer.borderWidth = 1
         self.queueHTTP = DispatchQueue(label: "com.gomax.http", qos: DispatchQoS.userInitiated)
-        self.queueUI = DispatchQueue(label: "com.gomax.ui", qos: DispatchQoS.userInitiated)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,7 +32,7 @@ class TextViewController: BaseViewController{
         let serverIP = self.getPreServerIP()
         if(serverIP.count > 0){
             self.queueHTTP.async {
-                self.sendHTTPGET(ip: serverIP, cmd: HTTPHelper.CMD_TEXT, cmdNumber: self.GET_TEXT)
+                self.sendHTTPGET(ip: serverIP, cmd: HTTPHelper.CMD_TEXT, cmdNumber: self.GET_TEXT_EVENT)
             }
         }else{
             DispatchQueue.main.async() {
@@ -53,11 +52,10 @@ extension TextViewController{
     @IBAction func setTextContent(sender: UIButton) {
         DispatchQueue.main.async {
             
-            
             let serverIP = self.getPreServerIP()
             if(serverIP.count > 0){
                 let data = ["content": self.textContentView.text]
-                self.sendHTTPPOST(ip: serverIP, cmd: HTTPHelper.CMD_TEXT, cmdNumber: self.SET_TEXT, data: data)
+                self.sendHTTPPOST(ip: serverIP, cmd: HTTPHelper.CMD_TEXT, cmdNumber: self.SET_TEXT_EVENT, data: data)
             }else{
                 DispatchQueue.main.async() {
                     self.view.makeToast("Please go to settings page and scan device first !", duration: 5.0, position: .bottom)
@@ -80,7 +78,7 @@ extension TextViewController{
                 debugPrint(json)
                 switch(cmdNumber){
                 
-                case self.GET_TEXT:
+                case self.GET_TEXT_EVENT:
                     print("GET_TEXT")
                     if let text_content = json["content"].string{
                         self.textContentView.text = text_content
@@ -121,7 +119,7 @@ extension TextViewController{
                 
                 switch(cmdNumber){
                 
-                case self.SET_TEXT:
+                case self.SET_TEXT_EVENT:
                     print("SET_TEXT")
                     debugPrint(json)
                     
@@ -129,7 +127,7 @@ extension TextViewController{
                         
                         if(result == "ok"){
                             DispatchQueue.main.async{
-                                self.view.makeToast("Set text content successful !", duration: 5.0, position: .bottom)
+                                self.view.makeToast("Set text content successful !", duration: 3.0, position: .bottom)
                             }
                             
                         }else{

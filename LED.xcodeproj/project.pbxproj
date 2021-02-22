@@ -21,6 +21,7 @@
 		8670E70725DF9F46007575FF /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8670E70625DF9F46007575FF /* TextViewController.swift */; };
 		868DF94E25E34B85008D58D9 /* BackGroundColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868DF94D25E34B85008D58D9 /* BackGroundColorViewController.swift */; };
 		868DF95125E34BE5008D58D9 /* TextColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868DF95025E34BE5008D58D9 /* TextColorViewController.swift */; };
+		86AC751C25E3B82B00BF7E28 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AC751B25E3B82B00BF7E28 /* UIColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		8670E70625DF9F46007575FF /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		868DF94D25E34B85008D58D9 /* BackGroundColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackGroundColorViewController.swift; sourceTree = "<group>"; };
 		868DF95025E34BE5008D58D9 /* TextColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextColorViewController.swift; sourceTree = "<group>"; };
+		86AC751B25E3B82B00BF7E28 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		9A028917A1E17CFF3181E7DA /* Pods-LED.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LED.release.xcconfig"; path = "Target Support Files/Pods-LED/Pods-LED.release.xcconfig"; sourceTree = "<group>"; };
 		BEF8D1F5A34DB3DDC25448E2 /* Pods-LED.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LED.debug.xcconfig"; path = "Target Support Files/Pods-LED/Pods-LED.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -77,6 +79,7 @@
 		8670E6E025DCB7A7007575FF /* LED */ = {
 			isa = PBXGroup;
 			children = (
+				86AC751A25E3B80C00BF7E28 /* Extension */,
 				8670E6F625DCFBFB007575FF /* ViewController */,
 				8670E6F525DCEEEB007575FF /* Delegate */,
 				8670E6E525DCB7A7007575FF /* ViewController.swift */,
@@ -133,6 +136,14 @@
 				8670E70025DE0E54007575FF /* HTTPHelper.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		86AC751A25E3B80C00BF7E28 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				86AC751B25E3B82B00BF7E28 /* UIColor.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		89A6E40CC3968451AAE161D8 /* Frameworks */ = {
@@ -274,6 +285,7 @@
 				868DF94E25E34B85008D58D9 /* BackGroundColorViewController.swift in Sources */,
 				8670E70125DE0E54007575FF /* HTTPHelper.swift in Sources */,
 				8670E6E425DCB7A7007575FF /* SceneDelegate.swift in Sources */,
+				86AC751C25E3B82B00BF7E28 /* UIColor.swift in Sources */,
 				8670E6FA25DCFE3E007575FF /* SettingsViewController.swift in Sources */,
 				8670E70725DF9F46007575FF /* TextViewController.swift in Sources */,
 				868DF95125E34BE5008D58D9 /* TextColorViewController.swift in Sources */,

@@ -29,9 +29,9 @@ class SystemViewController: BaseViewController, UIColorPickerViewControllerDeleg
     
     /** command event number  ***/
     final var GET_ALL_EVENT = 101
-    final var SET_LED_MODE = 102
-    final var SET_SPEED = 103
-    final var SET_VIVID = 104
+    final var SET_LED_MODE_EVENT = 102
+    final var SET_SPEED_EVENT = 103
+    final var SET_VIVID_EVENT = 104
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,21 +64,6 @@ class SystemViewController: BaseViewController, UIColorPickerViewControllerDeleg
 
 extension SystemViewController{
     
-    //text color picker (SegmentedControl)
-    @IBAction func textColorPicker(sender: UIButton) {
-      
-      
-
-        
-//        DispatchQueue.main.async() {
-//            let picker = UIColorPickerViewController()
-//            picker.delegate = self
-//            self.present(picker, animated: true, completion: nil)
-//        }
-    }
-    
-    
-    
     //detect vivid change (SegmentedControl)
     @objc func vividChanged(_ sender: UISegmentedControl){
         print(sender.selectedSegmentIndex)
@@ -97,7 +82,7 @@ extension SystemViewController{
         let serverIP = self.getPreServerIP()
         if(serverIP.count > 0){
             let data = ["vivid":vividValue]
-            self.sendHTTPPOST(ip: serverIP, cmd: HTTPHelper.CMD_VIVID, cmdNumber: self.SET_VIVID, data: data)
+            self.sendHTTPPOST(ip: serverIP, cmd: HTTPHelper.CMD_VIVID, cmdNumber: self.SET_VIVID_EVENT, data: data)
         }else{
             DispatchQueue.main.async() {
                 self.view.makeToast("Please go to settings page and scan device first !", duration: 5.0, position: .bottom)
@@ -154,7 +139,7 @@ extension SystemViewController{
                 let serverIP = self.getPreServerIP()
                 if(serverIP.count > 0){
                     let data = ["led_mode":index]
-                    self.sendHTTPPOST(ip: serverIP, cmd: HTTPHelper.CMD_MODE, cmdNumber: self.SET_LED_MODE, data: data)
+                    self.sendHTTPPOST(ip: serverIP, cmd: HTTPHelper.CMD_MODE, cmdNumber: self.SET_LED_MODE_EVENT, data: data)
                 }else{
                     DispatchQueue.main.async() {
                         self.view.makeToast("Please go to settings page and scan device first !", duration: 5.0, position: .bottom)
@@ -212,7 +197,7 @@ extension SystemViewController{
                 let serverIP = self.getPreServerIP()
                 if(serverIP.count > 0){
                     let data = ["speed":index]
-                    self.sendHTTPPOST(ip: serverIP, cmd: HTTPHelper.CMD_SPEED, cmdNumber: self.SET_SPEED, data: data)
+                    self.sendHTTPPOST(ip: serverIP, cmd: HTTPHelper.CMD_SPEED, cmdNumber: self.SET_SPEED_EVENT, data: data)
                 }else{
                     DispatchQueue.main.async() {
                         self.view.makeToast("Please go to settings page and scan device first !", duration: 5.0, position: .bottom)
@@ -372,7 +357,7 @@ extension SystemViewController{
                 
                 switch(cmdNumber){
                     
-                case self.SET_LED_MODE:
+                case self.SET_LED_MODE_EVENT:
                     print("SET_LED_MODE")
                     if let result = json["result"].string{
                         
@@ -390,36 +375,36 @@ extension SystemViewController{
                     }
                     break
                     
-                case self.SET_SPEED:
+                case self.SET_SPEED_EVENT:
                     print("SET_SPEED")
                     if let result = json["result"].string{
                         
                         if(result == "ok"){
                             DispatchQueue.main.async() {
-                                self.view.makeToast("Set Speed successful !", duration: 3.0, position: .bottom)
+                                self.view.makeToast("Set speed successful !", duration: 3.0, position: .bottom)
                             }
                             
                         }else{
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                self.showAlert(title: "Warning", message: "Set Speed failed !")
+                                self.showAlert(title: "Warning", message: "Set speed failed !")
                             }
                         }
                         return
                     }
                     break
                     
-                case self.SET_VIVID:
+                case self.SET_VIVID_EVENT:
                     print("SET_VIVID")
                     if let result = json["result"].string{
                         
                         if(result == "ok"){
                             DispatchQueue.main.async() {
-                                self.view.makeToast("Set Colorful Mode successful !", duration: 3.0, position: .bottom)
+                                self.view.makeToast("Set colorful mode successful !", duration: 3.0, position: .bottom)
                             }
                             
                         }else{
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                self.showAlert(title: "Warning", message: "Set Colorful Mode failed !")
+                                self.showAlert(title: "Warning", message: "Set colorful mode failed !")
                             }
                         }
                         return
