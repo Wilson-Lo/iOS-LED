@@ -17,6 +17,7 @@ class TextColorViewController: BaseViewController, UIColorPickerViewControllerDe
     var selectedRed: Int!
     var selectedGreen: Int!
     var selectedBlue: Int!
+    var delegate:ModalViewControllerDelegate?
     @IBOutlet weak var textColorButton: UIButton!
     
     /** command event number  ***/
@@ -44,10 +45,14 @@ class TextColorViewController: BaseViewController, UIColorPickerViewControllerDe
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        print("TextColorViewController-viewWillDisappear")
+        delegate?.dismissed()
+    }
+    
 }
 
 extension TextColorViewController{
-    
     
     //send text color
     @IBAction func sendTextColor(sender: UIButton) {
@@ -74,7 +79,6 @@ extension TextColorViewController{
             self.present(picker, animated: true, completion: nil)
         }
     }
-    
     
     //send HTTP GET method
     public func sendHTTPGET(ip:String, cmd: String, cmdNumber: Int){

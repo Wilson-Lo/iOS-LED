@@ -250,7 +250,7 @@
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hEq-qX-llq">
                                                                                 <rect key="frame" x="170" y="13.5" width="170" height="30"/>
                                                                                 <connections>
-                                                                                    <segue destination="Dfg-Nc-X4H" kind="show" id="Ijc-LX-O6H"/>
+                                                                                    <segue destination="Dfg-Nc-X4H" kind="show" identifier="BackGroundColorViewController" id="Ijc-LX-O6H"/>
                                                                                 </connections>
                                                                             </button>
                                                                         </subviews>
@@ -280,7 +280,7 @@
                                                                                 <rect key="frame" x="170" y="0.0" width="170" height="30"/>
                                                                                 <color key="backgroundColor" red="1" green="0.95561788250000002" blue="0.53353866009999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <connections>
-                                                                                    <segue destination="N26-YU-owE" kind="show" id="nFw-IE-DXz"/>
+                                                                                    <segue destination="N26-YU-owE" kind="show" identifier="TextColorViewController" id="nFw-IE-DXz"/>
                                                                                 </connections>
                                                                             </button>
                                                                         </subviews>
@@ -382,7 +382,7 @@
         <!--Text View Controller-->
         <scene sceneID="dbl-Ph-FI1">
             <objects>
-                <viewController storyboardIdentifier="TextColorViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RA9-Bv-c2D" customClass="TextViewController" customModule="LED" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="TextViewController" storyboardIdentifier="TextViewController" id="RA9-Bv-c2D" customClass="TextViewController" customModule="LED" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="s6W-9h-Obm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -433,7 +433,7 @@
         <!--Back Ground Color View Controller-->
         <scene sceneID="Ohk-Bp-Fyx">
             <objects>
-                <viewController id="Dfg-Nc-X4H" customClass="BackGroundColorViewController" customModule="LED" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BackGroundColorViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Dfg-Nc-X4H" customClass="BackGroundColorViewController" customModule="LED" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Thq-mN-H6u">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -488,7 +488,7 @@
         <!--Text Color View Controller-->
         <scene sceneID="SOh-j9-QdH">
             <objects>
-                <viewController id="N26-YU-owE" customClass="TextColorViewController" customModule="LED" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TextColorViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="N26-YU-owE" customClass="TextColorViewController" customModule="LED" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9Zy-WS-qSc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

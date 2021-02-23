@@ -290,37 +290,48 @@ extension SettingsViewController{
     }
     
     @IBAction func setHostname(sender: UIButton) {
+    
+        let alert = UIAlertController(title: "Notice", message: "After set hostname, will reboot LED !", preferredStyle: .alert)
         
-        DispatchQueue.main.async {
-            self.showLoading()
-        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default) { _ in
+              
         
-        self.queueUDP.async {
+        })
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+            DispatchQueue.main.async {
+                self.showLoading()
+            }
             
-            let serverIP = self.getPreServerIP()
-            if(serverIP.count > 0){
-                self.queueUDP.async {
-                    if(self.hostnameEditText.text!.isEmpty){
-                        DispatchQueue.main.async {
-                            self.closeLoading()
+            self.queueUDP.async {
+                
+                let serverIP = self.getPreServerIP()
+                if(serverIP.count > 0){
+                    DispatchQueue.main.async {
+                        if(self.hostnameEditText.text!.isEmpty){
+                            DispatchQueue.main.async {
+                                self.closeLoading()
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                self.view.makeToast("Hostname can't be empty !", duration: 2.0, position: .bottom)
+                            }
+                        }else{
+                            let data = ["hostname":self.hostnameEditText.text]
+                            self.sendHTTPPOST(ip: serverIP, cmd: HTTPHelper.CMD_HOSTNAME, cmdNumber: self.SET_HOSTNAME_EVENT, data: data)
                         }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            self.view.makeToast("Hostname can't be empty !", duration: 2.0, position: .bottom)
-                        }
-                    }else{
-                        let data = ["hostname":self.hostnameEditText.text]
-                        self.sendHTTPPOST(ip: serverIP, cmd: HTTPHelper.CMD_HOSTNAME, cmdNumber: self.SET_HOSTNAME_EVENT, data: data)
+                    }
+                }else{
+                    DispatchQueue.main.async {
+                        self.closeLoading()
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self.view.makeToast("Please scan device first !", duration: 2.0, position: .bottom)
                     }
                 }
-            }else{
-                DispatchQueue.main.async {
-                    self.closeLoading()
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.view.makeToast("Please scan device first !", duration: 2.0, position: .bottom)
-                }
             }
-        }
+        })
+    
+        self.present(alert, animated: true)
     }
     
 }

@@ -17,6 +17,7 @@ class BackGroundColorViewController: BaseViewController, UIColorPickerViewContro
     var selectedRed: Int!
     var selectedGreen: Int!
     var selectedBlue: Int!
+    var delegate:ModalViewControllerDelegate?
     @IBOutlet weak var backgroundColorButton: UIButton!
     
     /** command event number  ***/
@@ -42,6 +43,11 @@ class BackGroundColorViewController: BaseViewController, UIColorPickerViewContro
                 self.view.makeToast("Please go to settings page and scan device first !", duration: 5.0, position: .bottom)
             }
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        print("BackGroundColorViewController-viewWillDisappear")
+        delegate?.dismissed()
     }
     
 }
@@ -167,7 +173,6 @@ extension BackGroundColorViewController{
             }
         }
     }
-    
     
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
         viewController.dismiss(animated: true, completion: nil)

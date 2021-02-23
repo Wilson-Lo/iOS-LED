@@ -73,3 +73,7 @@ extension BaseViewController{
     }
     
 }
+
+protocol ModalViewControllerDelegate:class {
+    func dismissed()
+}

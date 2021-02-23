@@ -35,7 +35,7 @@ class SystemViewController: BaseViewController, UIColorPickerViewControllerDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
+        
         print("SystemViewController-viewDidLoad")
         self.btTextColor.layer.cornerRadius = 5
         self.btTextColor.layer.borderWidth = 1
@@ -60,6 +60,22 @@ class SystemViewController: BaseViewController, UIColorPickerViewControllerDeleg
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("prepare~~~~\(segue.identifier)")
+        if segue.identifier == "TextColorViewController" {
+            if let modalTextColorViewController = segue.destination as? TextColorViewController {
+                modalTextColorViewController.delegate = self
+            }
+        }else if segue.identifier == "BackGroundColorViewController" {
+            if let modalBackGroundColorViewController = segue.destination as? BackGroundColorViewController {
+                modalBackGroundColorViewController.delegate = self
+            }
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        print("SystemViewController-viewWillDisappear")
+    }
 }
 
 extension SystemViewController{
@@ -105,7 +121,7 @@ extension SystemViewController{
                 selectedNames = selectedItems
                 
                 switch(index){
-                    
+                
                 case 0:
                     //no action
                     self.btActionMode.setTitle("No Action", for: .normal)
@@ -163,7 +179,7 @@ extension SystemViewController{
                 selectedNames = selectedItems
                 
                 switch(index){
-                    
+                
                 case 0:
                     //fastest
                     self.btSpeed.setTitle("6", for: .normal)
@@ -215,20 +231,20 @@ extension SystemViewController{
             debugPrint(response)
             
             switch response.result{
-                
+            
             case .success(let value):
                 let json = JSON(value)
                 
                 debugPrint(json)
                 switch(cmdNumber){
-                    
+                
                 case self.GET_ALL_EVENT:
                     print("GET_ALL_EVENT")
                     if let led_mode = json["led_mode"].int{
                         print("mode = \(led_mode)")
                         
                         switch(led_mode){
-                            
+                        
                         case 0:
                             //no action
                             self.btActionMode.setTitle("No Action", for: .normal)
@@ -264,7 +280,7 @@ extension SystemViewController{
                     if let speed = json["speed"].int{
                         print("speed = \(speed)")
                         switch(speed){
-                            
+                        
                         case 0:
                             //fastest
                             self.btSpeed.setTitle("6", for: .normal)
@@ -349,14 +365,14 @@ extension SystemViewController{
             //  debugPrint(response)
             
             switch response.result{
-                
+            
             case .success(let value):
                 
                 let json = JSON(value)
                 debugPrint(json)
                 
                 switch(cmdNumber){
-                    
+                
                 case self.SET_LED_MODE_EVENT:
                     print("SET_LED_MODE")
                     if let result = json["result"].string{
@@ -430,16 +446,30 @@ extension SystemViewController{
     
     
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
-            let color = viewController.selectedColor
-            print("finish \(color)")
-            dismiss(animated: true, completion: nil)
+        let color = viewController.selectedColor
+        print("finish \(color)")
+        dismiss(animated: true, completion: nil)
         
     }
     
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
-            print("SelectColor")
-            let color = viewController.selectedColor
-        
+        print("SelectColor")
+        let color = viewController.selectedColor
     }
-    
+}
+
+extension SystemViewController: ModalViewControllerDelegate {
+    func dismissed() {
+        print("close~~~~")
+        let serverIP = self.getPreServerIP()
+        if(serverIP.count > 0){
+            self.queueHTTP.async {
+                self.sendHTTPGET(ip: serverIP, cmd: HTTPHelper.CMD_ALL, cmdNumber: self.GET_ALL_EVENT)
+            }
+        }
+        // dismiss(animated: true, completion: nil)//dismiss the presented view controller
+        //do whatever you want after it is dismissed
+        //like opening another modal view controller
+        //print("close~~~~")
+    }
 }
