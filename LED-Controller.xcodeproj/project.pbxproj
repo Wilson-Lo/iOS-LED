@@ -26,7 +26,7 @@
 
 /* Begin PBXFileReference section */
 		352A01688C3AA57B35506A3A /* Pods_LED.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LED.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8670E6DE25DCB7A7007575FF /* LED.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LED.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8670E6DE25DCB7A7007575FF /* LED-Controller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LED-Controller.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8670E6E125DCB7A7007575FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8670E6E325DCB7A7007575FF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		8670E6E525DCB7A7007575FF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -71,7 +71,7 @@
 		8670E6DF25DCB7A7007575FF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8670E6DE25DCB7A7007575FF /* LED.app */,
+				8670E6DE25DCB7A7007575FF /* LED-Controller.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -166,9 +166,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8670E6DD25DCB7A7007575FF /* LED */ = {
+		8670E6DD25DCB7A7007575FF /* LED-Controller */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8670E6F225DCB7A8007575FF /* Build configuration list for PBXNativeTarget "LED" */;
+			buildConfigurationList = 8670E6F225DCB7A8007575FF /* Build configuration list for PBXNativeTarget "LED-Controller" */;
 			buildPhases = (
 				4672A8363B867192A04D0DE8 /* [CP] Check Pods Manifest.lock */,
 				8670E6DA25DCB7A7007575FF /* Sources */,
@@ -180,9 +180,9 @@
 			);
 			dependencies = (
 			);
-			name = LED;
+			name = "LED-Controller";
 			productName = LED;
-			productReference = 8670E6DE25DCB7A7007575FF /* LED.app */;
+			productReference = 8670E6DE25DCB7A7007575FF /* LED-Controller.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -200,7 +200,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8670E6D925DCB7A7007575FF /* Build configuration list for PBXProject "LED" */;
+			buildConfigurationList = 8670E6D925DCB7A7007575FF /* Build configuration list for PBXProject "LED-Controller" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -213,7 +213,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8670E6DD25DCB7A7007575FF /* LED */,
+				8670E6DD25DCB7A7007575FF /* LED-Controller */,
 			);
 		};
 /* End PBXProject section */
@@ -442,7 +442,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gomax.led.LED;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gomax.led;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -463,7 +463,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gomax.led.LED;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gomax.led;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -473,7 +473,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8670E6D925DCB7A7007575FF /* Build configuration list for PBXProject "LED" */ = {
+		8670E6D925DCB7A7007575FF /* Build configuration list for PBXProject "LED-Controller" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8670E6F025DCB7A8007575FF /* Debug */,
@@ -482,7 +482,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8670E6F225DCB7A8007575FF /* Build configuration list for PBXNativeTarget "LED" */ = {
+		8670E6F225DCB7A8007575FF /* Build configuration list for PBXNativeTarget "LED-Controller" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8670E6F325DCB7A8007575FF /* Debug */,
